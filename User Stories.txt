@@ -1,0 +1,24 @@
+A user can have an admin or normal user role.
+
+One user can have one role 
+
+One role can be assigned to one user
+
+As an admin user, i can create categories
+
+As an admin user, i can create algorithms
+
+As an admin user, i can update the submission entries (status)(pass/fail)
+
+As a user, i can view the various categories
+
+As a user, i can submit my algorithm
+
+As a user, i can view public algorithms
+
+As a user, i can view all of my submissions
+
+As a user, i can login
+
+As a user, i want to be able to change my password
+
