@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name= "user")
+@Table(name= "users")
 public class User {
     @Id
     @Column
@@ -33,6 +33,7 @@ public class User {
         this.emailAddress = emailAddress;
         this.password = password;
     }
+    public User(){}
 
     public Long getId() {return id;}
 
