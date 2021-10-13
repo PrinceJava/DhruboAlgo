@@ -27,4 +27,26 @@ public class User {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
+    public User(Long id, String userName, String emailAddress, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+    }
+
+    public Long getId() {return id;}
+
+    public void setId(Long id) {this.id = id;}
+
+    public String getUserName() {return userName;}
+
+    public void setUserName(String userName) {this.userName = userName;}
+
+    public String getEmailAddress() {return emailAddress;}
+
+    public void setEmailAddress(String emailAddress) {this.emailAddress = emailAddress;}
+
+    public String getPassword() {return password;}
+
+    public void setPassword(String password) {this.password = password;}
 }
