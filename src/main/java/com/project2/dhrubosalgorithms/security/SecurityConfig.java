@@ -37,15 +37,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(
                         "/api/hello-world/", "/auth/users/register", "/auth/users/login").permitAll()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user/**").access("hasRole('ROLE_USER')")
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();
 
         // I think this is our best loop on admin vs user privileges outside of public access
-        http.authorizeRequests()
+/*        http.authorizeRequests()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/user/**").access("hasRole('ROLE_USER')");
+                .antMatchers("/user/**").access("hasRole('ROLE_USER')");*/
 
        // http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
