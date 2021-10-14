@@ -51,6 +51,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             username = jwtUtils.extractUsername(jwt);
         }
 
+        // POSSIBLE TODO IS UPDATE THIS TO INCLUDE ROLE IN HEADER
         //Token is being passed to JwtUtil class for details extraction
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             // only place to call the UserDetailsService interface method and sets UserDetails to it

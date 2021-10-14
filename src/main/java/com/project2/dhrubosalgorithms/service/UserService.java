@@ -17,6 +17,10 @@ public class UserService implements UserDetailsService {
     private final RoleRepository roleRepository;
 
 
+
+
+
+    // --------------------------------- METHOD FROM USER DETAILS SERVICE --------------- //
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmailAddress(email);

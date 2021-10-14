@@ -33,6 +33,8 @@ public class MyUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
+        //TODO TEST FUNCTIONALITY OF ROLE IN JWT TOKEN, CURRENTLY ADDED ADDITIONAL VARIABLE IN JWTUtils STRING claims
+        // MAY NEED TO ROLL BACK IF DOESN'T FUNCTION AND ADD ROLE INDIVIDUAL INSTEAD.
         // ------------------ //
         // Takes all the role names from ROLE class
         // and adds them to a list of authorities
@@ -83,6 +85,4 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }
