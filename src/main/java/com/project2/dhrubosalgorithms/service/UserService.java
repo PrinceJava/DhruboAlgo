@@ -53,6 +53,7 @@ public class UserService {
         }
     }
 
+
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
         System.out.println("service calling loginUser ==>");
         authenticationManager.authenticate(new
