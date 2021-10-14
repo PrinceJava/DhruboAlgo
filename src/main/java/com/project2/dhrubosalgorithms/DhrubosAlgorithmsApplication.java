@@ -13,8 +13,4 @@ public class DhrubosAlgorithmsApplication {
         SpringApplication.run(DhrubosAlgorithmsApplication.class, args);
     }
 
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 }
