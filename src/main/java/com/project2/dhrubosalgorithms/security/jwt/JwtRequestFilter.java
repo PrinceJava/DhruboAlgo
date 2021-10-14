@@ -28,9 +28,9 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
 
-    private final UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
-    private final JWTUtils jwtUtils;
+    private JWTUtils jwtUtils;
 
     //When any api will be called this method will be called first and this will extract
     // Token from header pass to JWT Util calls for token details extraction

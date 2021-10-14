@@ -2,10 +2,8 @@ package com.project2.dhrubosalgorithms.security;
 
 import com.project2.dhrubosalgorithms.security.jwt.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,10 +21,22 @@ import org.springframework.web.context.WebApplicationContext;
 @EnableWebSecurity @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+    // set and map MyUserDetailsService to take given UserName and find the User and send to MyUserDetails
+    private MyUserDetailsService myUserDetailsService;
 
-    private final JwtRequestFilter jwtRequestFilter;
+    @Autowired
+    public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService) {
+        this.myUserDetailsService = myUserDetailsService;
+    }
 
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+    // step1
+
+    /**
+     * We use the PasswordEncoder that is defined in the Spring Security configuration to encode the password. * @return
+     */
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
@@ -45,8 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();
-
-
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -59,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // fetching data for user for authentication
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(myUserDetailsService);
     }
 
     @Bean
@@ -68,5 +76,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return (MyUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
     }
-
 }

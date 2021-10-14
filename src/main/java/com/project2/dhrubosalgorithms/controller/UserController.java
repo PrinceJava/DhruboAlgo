@@ -1,3 +1,4 @@
+/*
 package com.project2.dhrubosalgorithms.controller;
 
 import com.project2.dhrubosalgorithms.model.User;
@@ -17,10 +18,11 @@ public class UserController {
     private final UserService userService;
     private AuthenticationManager authenticationManager;
 
-    @PostMapping("/register")
-    public User createUser(@RequestBody User userObject) {
-        System.out.println("controller is calling create user ===>");
-        return userService.createUser(userObject);
-    }
+//    @PostMapping("/register")
+//    public User createUser(@RequestBody User userObject) {
+//        System.out.println("controller is calling create user ===>");
+//        return userService.createUser(userObject);
+//    }
 
 }
+*/
