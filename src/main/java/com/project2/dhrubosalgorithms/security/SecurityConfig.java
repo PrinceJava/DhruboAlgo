@@ -22,12 +22,12 @@ import org.springframework.web.context.WebApplicationContext;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // set and map MyUserDetailsService to take given UserName and find the User and send to MyUserDetails
-    private MyUserDetailsService myUserDetailsService;
+    private final MyUserDetailsService myUserDetailsService;
 
-    @Autowired
-    public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService) {
-        this.myUserDetailsService = myUserDetailsService;
-    }
+//    @Autowired
+//    public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService) {
+//        this.myUserDetailsService = myUserDetailsService;
+//    }
 
 
     @Autowired
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(
-                        "/api/hello-world/", "/auth/users/register", "/auth/users/login").permitAll()
+                        "/users/register", "/users/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/user/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/user/**").access("hasRole('ROLE_ADMIN')")

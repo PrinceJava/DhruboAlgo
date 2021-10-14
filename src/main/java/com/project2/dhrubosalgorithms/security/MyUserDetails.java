@@ -39,13 +39,17 @@ public class MyUserDetails implements UserDetails {
         // Takes all the role names from ROLE class
         // and adds them to a list of authorities
         // which will be used in HTTP configure security
-        Collection<Role> roles = null;
-            List<GrantedAuthority> authorities = new ArrayList<>();
-        assert false;
-        for (Role role : roles) {
-                authorities.add(new SimpleGrantedAuthority(role.getName()));
-            }
-            return authorities;
+
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        return authorities;
+//        Collection<Role> roles = null;
+//            List<GrantedAuthority> authorities = new ArrayList<>();
+//        for (Role role : roles) {
+//                authorities.add(new SimpleGrantedAuthority(role.getName()));
+//            }
+//            return authorities;
         }
         // ORIGINAL IDEA
         // return new HashSet<GrantedAuthority>();

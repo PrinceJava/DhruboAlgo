@@ -25,7 +25,7 @@ public class JWTUtils {
 
     //Token Creation and token expiry is set to 10 hours
     private String createToken(Map<String, Object> claims, String username, Collection<? extends GrantedAuthority> authorities) {
-        return Jwts.builder().setClaims(claims).setSubject(username).setIssuedAt(new Date(System.currentTimeMillis()))
+        return Jwts.builder().setClaims(claims).setSubject(username).claim("role",authorities).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }

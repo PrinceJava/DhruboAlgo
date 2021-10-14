@@ -1,6 +1,7 @@
 package com.project2.dhrubosalgorithms.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 
 import javax.persistence.*;
