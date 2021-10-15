@@ -130,7 +130,6 @@ public class AdminService {
     }
 
 
-
 /*    public User updateUserRole(Long userId, Long roleId, User userObject) {
         // authenticate
         MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder
