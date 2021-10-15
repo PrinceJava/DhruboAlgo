@@ -6,6 +6,7 @@ import com.project2.dhrubosalgorithms.model.Category;
 import com.project2.dhrubosalgorithms.model.Role;
 import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
+import com.project2.dhrubosalgorithms.model.response.DeleteSubmission;
 import com.project2.dhrubosalgorithms.repository.*;
 import com.project2.dhrubosalgorithms.security.MyUserDetails;
 import com.project2.dhrubosalgorithms.security.jwt.JWTUtils;
@@ -127,6 +128,42 @@ public class AdminService {
                 .getAuthentication()
                 .getPrincipal();
         return submissionRepository.findAll();
+    }
+    public List<Submissions> getPendingSubmissions(){
+        System.out.println("ADMIN SERVICE - getPendingSubmissions ==>");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        return submissionRepository.findByStatusIs("pending");
+    }
+
+    public Submissions updateSubmission(String submissionStatus, Boolean submissionPass, Long submissionId ){
+        System.out.println("ADMIN SERVICE - updateSubmissions ==>");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        try{
+            Submissions submission = submissionRepository.findById(submissionId).get();
+            submission.setStatus(submissionStatus);
+            submission.setPass(submissionPass);
+            return submission;
+        }catch(NoSuchElementException e){
+            throw new InformationNotFoundException("Submission not found");
+
+        }
+    }
+    public void deleteSubmission (Long submissionId){
+        System.out.println("ADMIN SERVICE - deleteSubmissions ==>");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        try{
+            Submissions submission = submissionRepository.findById(submissionId).get();
+            submissionRepository.delete(submission);
+        }catch (NoSuchElementException e){
+            throw new InformationNotFoundException("Submission not found");
+
+        }
     }
 
 

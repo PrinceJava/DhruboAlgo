@@ -4,6 +4,8 @@ import com.project2.dhrubosalgorithms.model.Role;
 import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.model.response.AddRole;
+import com.project2.dhrubosalgorithms.model.response.DeleteSubmission;
+import com.project2.dhrubosalgorithms.model.response.SubmissionUpdate;
 import com.project2.dhrubosalgorithms.service.AdminService;
 import com.project2.dhrubosalgorithms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,15 +62,24 @@ public class AdminController {
         return ResponseEntity.ok().body(adminService.getSubmissions());
     }
 
-/*
-    @PostMapping ("/adduserrole/user/{userName}/role/{roleName}")
-    public ResponseEntity<> updateUserRole(@PathVariable(value = "userName") String userName,
-                               @PathVariable(value = "roleName") String roleName,
-                               @RequestBody User userObject){
-            adminService.addUserRole(userName,roleName);
+    //TODO get all pending submissions
+    //TODO include Admin Service and Admin Controller
+    //TODO PUT and update status and pass to boolean (Raul is going to create a form)
 
+    @GetMapping("/pending")
+    public ResponseEntity<List<Submissions>>getPendingSubmissions(){
+        return ResponseEntity.ok().body(adminService.getPendingSubmissions());
     }
-*/
 
+    @PutMapping("/submissions")
+    public ResponseEntity<?>updateSubmission(@RequestBody SubmissionUpdate updateForm){
+        URI uri = URI.create("/com.project2.dhrubosalgorithms/controller/admincontroller/");
+        return ResponseEntity.created(uri).body(adminService.updateSubmission(updateForm.getStatus(), updateForm.getPass(), updateForm.getSubmissionId()));
+    }
+    @DeleteMapping("/submissions")
+    public ResponseEntity<?>deleteSubmission(@RequestBody DeleteSubmission updateForm) {
+        adminService.deleteSubmission(updateForm.getSubmissionId());
+        return ResponseEntity.ok().build();
+    }
 }
 

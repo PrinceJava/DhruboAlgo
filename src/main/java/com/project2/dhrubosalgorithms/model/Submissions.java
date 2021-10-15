@@ -22,7 +22,7 @@ public class Submissions {
 
     @Column
     private Boolean pass;
-    
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -15,6 +15,7 @@ public class AddRole {
         this.userName = userName;
     }
 
+
     public String getRoleName() {
         return roleName;
     }
