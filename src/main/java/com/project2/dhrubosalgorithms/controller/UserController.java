@@ -1,5 +1,6 @@
 package com.project2.dhrubosalgorithms.controller;
 
+import com.project2.dhrubosalgorithms.model.Algorithm;
 import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.model.response.LoginRequest;
@@ -51,5 +52,9 @@ public class UserController {
         return ResponseEntity.created(uri).build();
     }
 
+    @GetMapping("/algorithms")
+    public ResponseEntity<List<Algorithm>>getAlgorithms(){
+        return ResponseEntity.ok().body(studentService.getAlgorithms());
+    }
 
 }

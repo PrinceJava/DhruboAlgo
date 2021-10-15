@@ -17,6 +17,7 @@ import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service @Transactional
@@ -152,5 +153,14 @@ public class StudentService {
         } catch (NoSuchElementException e){
             throw new InformationNotFoundException("Format was incorrect on your submission");
         }
+    }
+    public List<Algorithm> getAlgorithms() {
+        System.out.println("ADMIN SERVICE - getSubmissions ==>");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        return algorithmRepository.findAll().stream()
+                .filter(Algorithm::isPublic).collect(Collectors.toList());
     }
 }

@@ -23,6 +23,9 @@ public class Submissions {
     @Column
     private Boolean pass;
 
+    @Column
+    private String answer;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -82,4 +85,8 @@ public class Submissions {
     public void setAlgorithm(Algorithm algorithm) {
         this.algorithm = algorithm;
     }
+
+    public String getAnswer() {return answer;}
+
+    public void setAnswer(String answer) {this.answer = answer;}
 }

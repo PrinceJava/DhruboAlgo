@@ -11,4 +11,5 @@ public interface AlgorithmRepository extends JpaRepository<Algorithm, Long> {
     Algorithm findByNameAndIdIsNot(String algorithmName, Long algorithmId);
 
     List<Algorithm> findByCategoryId(Long algorithmId);
+
 }

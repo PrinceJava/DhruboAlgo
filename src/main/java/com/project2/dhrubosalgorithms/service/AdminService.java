@@ -123,6 +123,9 @@ public class AdminService {
 
 
     public List<Submissions> getSubmissions(){
+        /*
+
+         */
         System.out.println("ADMIN SERVICE - getSubmissions ==>");
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
                 .getAuthentication()
@@ -137,7 +140,15 @@ public class AdminService {
         return submissionRepository.findByStatusIs("pending");
     }
 
+    /**
+     *
+     * @param submissionStatus
+     * @param submissionPass
+     * @param submissionId
+     * @return
+     */
     public Submissions updateSubmission(String submissionStatus, Boolean submissionPass, Long submissionId ){
+
         System.out.println("ADMIN SERVICE - updateSubmissions ==>");
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
                 .getAuthentication()

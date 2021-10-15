@@ -49,6 +49,7 @@ public class Algorithm {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "algorithm")
     private List<Submissions> submissions;
 
