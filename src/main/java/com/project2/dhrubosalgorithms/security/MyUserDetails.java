@@ -2,8 +2,10 @@ package com.project2.dhrubosalgorithms.security;
 import com.project2.dhrubosalgorithms.model.User;
 import org.springframework.security.core.GrantedAuthority;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -42,8 +44,14 @@ public class MyUserDetails implements UserDetails {
     // -------------------------------- USER DETAILS INTERFACE ------------------------------------------//
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<GrantedAuthority>();
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+        return authorities;
     }
+
+
 
     // CAUSED A LOT OF ERRORS IF YOU DON"T HAVE
     // http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
