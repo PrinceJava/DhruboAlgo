@@ -1,5 +1,7 @@
 package com.project2.dhrubosalgorithms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -21,10 +23,12 @@ public class Submissions {
     @Column
     private Boolean pass;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "algorithm_id")
     private Algorithm algorithm;

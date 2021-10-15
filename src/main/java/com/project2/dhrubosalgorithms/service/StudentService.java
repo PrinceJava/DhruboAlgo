@@ -144,9 +144,9 @@ public class StudentService {
             Category category = categoryRepository.findByName(categoryName);
             Algorithm algorithm = algorithmRepository.findByName(algorithmName);
             User user = userRepository.findById(userId).get();
-            
-            submissionObject.setUser(user.getId());
-            submissionObject.setAlgorithm((Algorithm) algorithm.getId());
+
+            submissionObject.setUser((User) user);
+            submissionObject.setAlgorithm((Algorithm) algorithm);
             submissionObject.setPass(null);
             return submissionRepository.save(submissionObject);
         } catch (NoSuchElementException e){

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -40,12 +41,14 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/{categoryName}/{algorithmName}/submit")
-    public Submissions createSubmissionEntry(
+    public ResponseEntity<?> createSubmissionEntry(
             @PathVariable(value = "userId") Long userId,
             @PathVariable(value = "categoryName") String categoryName,
             @PathVariable(value = "algorithmName") String algorithmName,
             @RequestBody Submissions submissionsObject){
-        return studentService.createSubmissionEntry(userId,categoryName,algorithmName,submissionsObject);
+        studentService.createSubmissionEntry(userId,categoryName,algorithmName,submissionsObject);
+        URI uri = URI.create("/com.project2.dhrubosalgorithms/controller/usercontroller/");
+        return ResponseEntity.created(uri).build();
     }
 
 
