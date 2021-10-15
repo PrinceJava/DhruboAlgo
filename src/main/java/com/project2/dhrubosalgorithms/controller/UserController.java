@@ -39,7 +39,7 @@ public class UserController {
         return userService.loginUser(loginRequest);
     }
 
-    @PostMapping("/{userId}{categoryName}/{algorithmName}/submit")
+    @PostMapping("/{userId}/{categoryName}/{algorithmName}/submit")
     public Submissions createSubmissionEntry(
             @PathVariable(value = "userId") Long userId,
             @PathVariable(value = "categoryName") String categoryName,

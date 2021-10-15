@@ -1,5 +1,6 @@
 package com.project2.dhrubosalgorithms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -32,14 +33,16 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Collection<Role> roles = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     private List<Algorithm> algorithms;
 
     @OneToMany(mappedBy = "user")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Category> categories;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Submissions> submissions;
 
@@ -91,22 +94,6 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
-    }
-
-    public List<Algorithm> getRecipeList() {
-        return algorithms;
-    }
-
-    public void setRecipeList(List<Algorithm> algorithms) {
-        this.algorithms = algorithms;
-    }
-
-    public List<Category> getCategoryList() {
-        return categories;
-    }
-
-    public void setCategoryList(List<Category> categories) {
-        this.categories = categories;
     }
 
     public List<Algorithm> getAlgorithms() {

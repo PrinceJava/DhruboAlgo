@@ -143,8 +143,11 @@ public class StudentService {
         try{
             Category category = categoryRepository.findByName(categoryName);
             Algorithm algorithm = algorithmRepository.findByName(algorithmName);
-            Optional<User> user = userRepository.findById(userId);
-
+            User user = userRepository.findById(userId).get();
+            
+            submissionObject.setUser(user.getId());
+            submissionObject.setAlgorithm((Algorithm) algorithm.getId());
+            submissionObject.setPass(null);
             return submissionRepository.save(submissionObject);
         } catch (NoSuchElementException e){
             throw new InformationNotFoundException("Format was incorrect on your submission");

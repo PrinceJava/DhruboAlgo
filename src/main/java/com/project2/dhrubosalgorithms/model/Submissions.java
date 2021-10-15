@@ -1,7 +1,7 @@
 package com.project2.dhrubosalgorithms.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "submission")
@@ -13,13 +13,13 @@ public class Submissions {
     private Long id;
 
     @Column
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column
     private String status;
 
     @Column
-    private boolean pass;
+    private Boolean pass;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -40,11 +40,11 @@ public class Submissions {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -56,11 +56,11 @@ public class Submissions {
         this.status = status;
     }
 
-    public boolean isPass() {
+    public Boolean isPass() {
         return pass;
     }
 
-    public void setPass(boolean pass) {
+    public void setPass(Boolean pass) {
         this.pass = pass;
     }
 
