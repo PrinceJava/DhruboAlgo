@@ -1,19 +1,29 @@
 package com.project2.dhrubosalgorithms.security;
-
-import com.project2.dhrubosalgorithms.model.Role;
 import com.project2.dhrubosalgorithms.model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
+
+/*
+* Provides core user information.
+Implementations are not used directly by Spring Security for security purposes.
+* They simply store user information which is later encapsulated into Authentication objects.
+* This allows non-security related user information (such as email addresses, telephone numbers etc)
+*       to be stored in a convenient location.
+
+Concrete implementations must take particular care to ensure the non-null contract detailed for each method is enforced.
+* See User for a reference implementation (which you might like to extend or use in your code).
+*
+* https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/core/userdetails/UserDetails.html
+
+* */
 public class MyUserDetails implements UserDetails {
 
-    private final User user;
+    private User user;
     private String userName;
     private String password;
     private String emailAddress;
@@ -32,30 +42,8 @@ public class MyUserDetails implements UserDetails {
     // -------------------------------- USER DETAILS INTERFACE ------------------------------------------//
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        //TODO TEST FUNCTIONALITY OF ROLE IN JWT TOKEN, CURRENTLY ADDED ADDITIONAL VARIABLE IN JWTUtils STRING claims
-        // MAY NEED TO ROLL BACK IF DOESN'T FUNCTION AND ADD ROLE INDIVIDUAL INSTEAD.
-        // ------------------ //
-        // Takes all the role names from ROLE class
-        // and adds them to a list of authorities
-        // which will be used in HTTP configure security
-
-
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
-        return authorities;
-//        Collection<Role> roles = null;
-//            List<GrantedAuthority> authorities = new ArrayList<>();
-//        for (Role role : roles) {
-//                authorities.add(new SimpleGrantedAuthority(role.getName()));
-//            }
-//            return authorities;
-        }
-        // ORIGINAL IDEA
-        // return new HashSet<GrantedAuthority>();
-
-
-    // NEED TO WORK ON GRANTED AUTHORITIES tomorrow
+        return new HashSet<GrantedAuthority>();
+    }
 
     // CAUSED A LOT OF ERRORS IF YOU DON"T HAVE
     // http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -89,4 +77,6 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

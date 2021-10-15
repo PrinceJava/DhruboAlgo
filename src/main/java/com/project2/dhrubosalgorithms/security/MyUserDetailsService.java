@@ -2,7 +2,6 @@ package com.project2.dhrubosalgorithms.security;
 
 import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -24,13 +24,19 @@ import java.io.IOException;
 // takes the JWT, sends it to JwtUtils.extractUserName(JWT) to assign username value
 
 
-@Component @RequiredArgsConstructor
+@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
 
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    public void setUserDetailsService(UserDetailsService userDetailsService){this.userDetailsService = userDetailsService;}
+
     private JWTUtils jwtUtils;
+
+    @Autowired
+    public void setJwtUtils(JWTUtils jwtUtils){this.jwtUtils = jwtUtils;}
 
     //When any api will be called this method will be called first and this will extract
     // Token from header pass to JWT Util calls for token details extraction
@@ -44,6 +50,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
 
+        // HERE IS WHERE I NEED TO CREATE THE ROLES LIST IN COLLECTION
         //Checking if Bearer is present in Header or not because When sending api request with
         // token bearer should be present in that
         if (AuthorizationHeader != null && AuthorizationHeader.startsWith("Bearer ")) {

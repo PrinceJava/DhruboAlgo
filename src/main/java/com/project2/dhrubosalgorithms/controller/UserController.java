@@ -4,6 +4,7 @@ import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.model.response.LoginRequest;
 import com.project2.dhrubosalgorithms.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,13 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
-    private final AuthenticationManager authenticationManager;
+    private UserService userService;
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    public void setUserService(UserService userService){this.userService = userService;}
+    @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager){this.authenticationManager=authenticationManager;}
+
 
     @PostMapping("/register")
     public User createUser(@RequestBody User userObject) {

@@ -20,12 +20,13 @@ public class JWTUtils {
     //Token Generation staring
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername(), userDetails.getAuthorities());
+        return createToken(claims, userDetails.getUsername()/*, userDetails.getAuthorities()*/);
     }
 
     //Token Creation and token expiry is set to 10 hours
-    private String createToken(Map<String, Object> claims, String username, Collection<? extends GrantedAuthority> authorities) {
-        return Jwts.builder().setClaims(claims).setSubject(username).claim("role",String.valueOf(authorities)).setIssuedAt(new Date(System.currentTimeMillis()))
+    private String createToken(Map<String, Object> claims, String username/*, Collection<? extends GrantedAuthority> authorities*/) {
+        return Jwts.builder().setClaims(claims).setSubject(username)/*.claim("role",String.valueOf(authorities))*/
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }

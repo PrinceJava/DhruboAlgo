@@ -1,8 +1,14 @@
 package com.project2.dhrubosalgorithms.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 @Entity
@@ -13,8 +19,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String username;
+    @Column(unique = true)
+    private String userName;
 
     @Column(unique = true)
     private String emailAddress;
@@ -23,47 +29,58 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private Role role;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Collection<Role> roles = new ArrayList<>();
 
     public User(Long id, String userName, String emailAddress, String password) {
         this.id = id;
-        this.username = userName;
+        this.userName = userName;
         this.emailAddress = emailAddress;
         this.password = password;
     }
-    public User(){}
 
-    public Long getId() {return id;}
-
-    public void setId(Long id) {this.id = id;}
-
-    public String getUserName() {return username;}
-
-    public void setUserName(String userName) {this.username = userName;}
-
-    public String getEmailAddress() {return emailAddress;}
-
-    public void setEmailAddress(String emailAddress) {this.emailAddress = emailAddress;}
-
-    public String getPassword() {return password;}
-
-    public void setPassword(String password) {this.password = password;}
-
-    public String getUsername() {
-        return username;
+    public User() {
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public Long getId() {
+        return id;
     }
 
-    public Role getRole() {
-        return role;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    ;
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }

@@ -1,9 +1,6 @@
 package com.project2.dhrubosalgorithms.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-
 import javax.persistence.*;
 
 @Entity
@@ -19,16 +16,22 @@ public class Role {
     private String name;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "role")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public Role() {
-    }
+    public Role() {}
 
     public Role(Long id, String name) {
         this.id = id;
         this.name = name;
     }
+/*
+    public User getUser() {return user;}
+
+    public void setUser(User user) {
+        this.user = user;
+    }*/
 
     public Long getId() {return id;}
 

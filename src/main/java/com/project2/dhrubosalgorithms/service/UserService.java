@@ -1,6 +1,7 @@
 package com.project2.dhrubosalgorithms.service;
 
 import com.project2.dhrubosalgorithms.exception.InformationExistException;
+import com.project2.dhrubosalgorithms.model.Role;
 import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.model.response.LoginRequest;
 import com.project2.dhrubosalgorithms.model.response.LoginResponse;
@@ -21,23 +22,26 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
+    private AuthenticationManager authenticationManager;
+    private UserDetailsService userDetailsService;
+    private JWTUtils jwtUtils;
 
+    @Autowired
+    public void setRoleRepository(RoleRepository roleRepository){this.roleRepository = roleRepository;}
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder){this.passwordEncoder = passwordEncoder;}
     @Autowired
-    private AuthenticationManager authenticationManager;
-
+    public void setAuthenticationManager(AuthenticationManager authenticationManager){this.authenticationManager = authenticationManager;}
     @Autowired
-    private UserDetailsService userDetailsService;
-
+    public void setUserDetailsService(UserDetailsService userDetailsService){this.userDetailsService = userDetailsService;}
     @Autowired
-    private JWTUtils jwtUtils;
+    public void setJwtUtils(JWTUtils jwtUtils){this.jwtUtils = jwtUtils;}
 
 
     public User createUser(User userObject) {
@@ -46,6 +50,8 @@ public class UserService {
         // then create the user in the db
         if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
+            Role role = roleRepository.findByName("ROLE_USER");
+            userObject.getRoles().add(role);
             return userRepository.save(userObject);
         } else {
             throw new InformationExistException("user with the email address " +
