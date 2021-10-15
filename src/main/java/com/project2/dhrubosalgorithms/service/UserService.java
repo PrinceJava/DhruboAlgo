@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -50,8 +52,9 @@ public class UserService {
         // then create the user in the db
         if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
-            Role role = roleRepository.findByName("ROLE_USER");
+            Role role = roleRepository.findById(2L).get();
             userObject.getRoles().add(role);
+            userObject.setRoles(userObject.getRoles());
             return userRepository.save(userObject);
         } else {
             throw new InformationExistException("user with the email address " +

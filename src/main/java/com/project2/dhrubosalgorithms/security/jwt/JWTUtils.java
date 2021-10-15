@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JWTUtils {
@@ -20,12 +21,12 @@ public class JWTUtils {
     //Token Generation staring
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername()/*, userDetails.getAuthorities()*/);
+        return createToken(claims, userDetails.getUsername(), userDetails.getAuthorities());
     }
 
     //Token Creation and token expiry is set to 10 hours
-    private String createToken(Map<String, Object> claims, String username/*, Collection<? extends GrantedAuthority> authorities*/) {
-        return Jwts.builder().setClaims(claims).setSubject(username)/*.claim("role",String.valueOf(authorities))*/
+    private String createToken(Map<String, Object> claims, String username, Collection<? extends GrantedAuthority> authorities) {
+        return Jwts.builder().setClaims(claims).setSubject(username).claim("roles",authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
