@@ -70,7 +70,7 @@ public class AdminService {
         return userRepository.save(userObject);
     }
 
-    public Role saveRole(Role roleObject) {
+    public Role addRole(Role roleObject) {
         System.out.println("Calling AdminService saveRole ==>");
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()

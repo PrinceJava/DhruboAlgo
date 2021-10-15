@@ -22,16 +22,15 @@ public class Role {
 
     public Role() {}
 
-    public Role(Long id, String name) {
+    public Role(Long id, String name, User user) {
         this.id = id;
         this.name = name;
+        this.user = user;
     }
-/*
+
     public User getUser() {return user;}
 
-    public void setUser(User user) {
-        this.user = user;
-    }*/
+    public void setUser(User user) {this.user = user;}
 
     public Long getId() {return id;}
 

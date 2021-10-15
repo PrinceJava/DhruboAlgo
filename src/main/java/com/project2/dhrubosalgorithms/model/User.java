@@ -32,11 +32,13 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Collection<Role> roles = new ArrayList<>();
 
-    public User(Long id, String userName, String emailAddress, String password) {
+
+    public User(Long id, String userName, String emailAddress, String password, Collection<Role> roles) {
         this.id = id;
         this.userName = userName;
         this.emailAddress = emailAddress;
         this.password = password;
+        this.roles = roles;
     }
 
     public User() {
