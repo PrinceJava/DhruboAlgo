@@ -1,6 +1,7 @@
 package com.project2.dhrubosalgorithms.controller;
 
 import com.project2.dhrubosalgorithms.model.Role;
+import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.model.response.AddRole;
 import com.project2.dhrubosalgorithms.service.AdminService;
@@ -48,10 +49,15 @@ public class AdminController {
         return ResponseEntity.created(uri).body(adminService.addRole(role));
     }
 
-    @PostMapping("/role/addUserRole")
+    @PostMapping("/role/adduserrole")
     public ResponseEntity<?>addUserRole(@RequestBody AddRole addRoleForm){
         adminService.addUserRole(addRoleForm.getUserName(), addRoleForm.getRoleName());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/getsubmissions")
+    public ResponseEntity<List<Submissions>>getSubmissions(){
+        return ResponseEntity.ok().body(adminService.getSubmissions());
     }
 
 /*

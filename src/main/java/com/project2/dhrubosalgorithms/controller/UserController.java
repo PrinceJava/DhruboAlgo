@@ -1,16 +1,15 @@
 package com.project2.dhrubosalgorithms.controller;
 
+import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.model.response.LoginRequest;
+import com.project2.dhrubosalgorithms.service.StudentService;
 import com.project2.dhrubosalgorithms.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,12 +18,14 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
+    private StudentService studentService;
     private AuthenticationManager authenticationManager;
     @Autowired
     public void setUserService(UserService userService){this.userService = userService;}
     @Autowired
     public void setAuthenticationManager(AuthenticationManager authenticationManager){this.authenticationManager=authenticationManager;}
-
+    @Autowired
+    public void setStudentService(StudentService studentService){this.studentService = studentService;}
 
     @PostMapping("/register")
     public User createUser(@RequestBody User userObject) {
@@ -36,6 +37,15 @@ public class UserController {
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         System.out.println("controller is calling loginUser ===>");
         return userService.loginUser(loginRequest);
+    }
+
+    @PostMapping("/{userId}{categoryName}/{algorithmName}/submit")
+    public Submissions createSubmissionEntry(
+            @PathVariable(value = "userId") Long userId,
+            @PathVariable(value = "categoryName") String categoryName,
+            @PathVariable(value = "algorithmName") String algorithmName,
+            @RequestBody Submissions submissionsObject){
+        return studentService.createSubmissionEntry(userId,categoryName,algorithmName,submissionsObject);
     }
 
 

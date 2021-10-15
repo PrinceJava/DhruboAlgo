@@ -9,8 +9,8 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "ategories")
-public class AlgorithmCategory {
+@Table(name = "categories")
+public class Category {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,15 +32,13 @@ public class AlgorithmCategory {
     @JsonIgnore
     private User user;
 
-    public AlgorithmCategory(Long id, String name, String description) {
+    public Category(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public AlgorithmCategory() {
-
-    }
+    public Category(){}
 
     public Long getId() {
         return id;
@@ -66,29 +64,6 @@ public class AlgorithmCategory {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
-
-    public List<Algorithm> getRecipeList() {
-        return algorithms;
-    }
-
-    public void setRecipeList(List<Algorithm> algorithms) {
-        this.algorithms = algorithms;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {this.user = user;}
-
     public List<Algorithm> getAlgorithms() {
         return algorithms;
     }
@@ -96,4 +71,14 @@ public class AlgorithmCategory {
     public void setAlgorithms(List<Algorithm> algorithms) {
         this.algorithms = algorithms;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
+
+

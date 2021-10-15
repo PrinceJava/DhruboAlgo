@@ -38,14 +38,16 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<AlgorithmCategory> categories;
+    private List<Category> categories;
 
-    public User(Long id, String userName, String emailAddress, String password, Collection<Role> roles) {
+    @OneToMany(mappedBy = "user")
+    private List<Submissions> submissions;
+
+    public User(Long id, String userName, String emailAddress, String password) {
         this.id = id;
         this.userName = userName;
         this.emailAddress = emailAddress;
         this.password = password;
-        this.roles = roles;
     }
 
     public User() {
@@ -82,9 +84,11 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public Collection<Role> getRoles() {
         return roles;
     }
+
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
@@ -93,15 +97,39 @@ public class User {
         return algorithms;
     }
 
-    public void setRecipeList(List<Algorithm> recipeList) {
-        this.algorithms = recipeList;
+    public void setRecipeList(List<Algorithm> algorithms) {
+        this.algorithms = algorithms;
     }
 
-    public List<AlgorithmCategory> getCategoryList() {
+    public List<Category> getCategoryList() {
         return categories;
     }
 
-    public void setCategoryList(List<AlgorithmCategory> categoryList) {
-        this.categories = categoryList;
+    public void setCategoryList(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public List<Algorithm> getAlgorithms() {
+        return algorithms;
+    }
+
+    public void setAlgorithms(List<Algorithm> algorithms) {
+        this.algorithms = algorithms;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public List<Submissions> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submissions> submissions) {
+        this.submissions = submissions;
     }
 }

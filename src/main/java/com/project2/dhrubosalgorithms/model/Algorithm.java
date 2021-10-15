@@ -3,6 +3,7 @@ package com.project2.dhrubosalgorithms.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "algorithms")
@@ -16,16 +17,22 @@ public class Algorithm {
     private String name;
 
     @Column
-    private String time;
+    private String description;
 
     @Column
-    private Integer portions;
+    private String difficulty;
 
     @Column
-    private String ingredients;
+    private String hints;
 
     @Column
-    private String steps;
+    private String timeComplexity;
+
+    @Column
+    private String spaceComplexity;
+
+    @Column
+    private String constraints;
 
     @Column
     private boolean isPublic;
@@ -40,7 +47,12 @@ public class Algorithm {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private AlgorithmCategory algorithmCategory;
+    private Category category;
+
+    @OneToMany(mappedBy = "algorithm")
+    private List<Submissions> submissions;
+
+
 
     public Algorithm() {
     }
@@ -61,72 +73,52 @@ public class Algorithm {
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getPortions() {
-        return portions;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public void setPortions(Integer portions) {
-        this.portions = portions;
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public String getIngredients() {
-        return ingredients;
+    public String getHints() {
+        return hints;
     }
 
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
+    public void setHints(String hints) {
+        this.hints = hints;
     }
 
-    public String getSteps() {
-        return steps;
+    public String getTimeComplexity() {
+        return timeComplexity;
     }
 
-    public void setSteps(String steps) {
-        this.steps = steps;
+    public void setTimeComplexity(String timeComplexity) {
+        this.timeComplexity = timeComplexity;
     }
 
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", time='" + time + '\'' +
-                ", portions=" + portions +
-                ", ingredients='" + ingredients + '\'' +
-                ", steps='" + steps + '\'' +
-                '}';
+    public String getSpaceComplexity() {
+        return spaceComplexity;
     }
 
-    public AlgorithmCategory getAlgorithm() {
-        return algorithmCategory;
+    public void setSpaceComplexity(String spaceComplexity) {
+        this.spaceComplexity = spaceComplexity;
     }
 
-    public void setAlgorithmCategory(AlgorithmCategory algorithmCategory) {
-        this.algorithmCategory = algorithmCategory;
+    public String getConstraints() {
+        return constraints;
     }
 
-    public boolean getIsPublic() {
-        return isPublic;
-    }
-
-    public void setIsPublic(boolean isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setConstraints(String constraints) {
+        this.constraints = constraints;
     }
 
     public boolean isPublic() {
@@ -137,7 +129,27 @@ public class Algorithm {
         isPublic = aPublic;
     }
 
-    public AlgorithmCategory getAlgorithmCategory() {
-        return algorithmCategory;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Submissions> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submissions> submissions) {
+        this.submissions = submissions;
     }
 }

@@ -2,10 +2,11 @@ package com.project2.dhrubosalgorithms.service;
 
 import com.project2.dhrubosalgorithms.exception.InformationExistException;
 import com.project2.dhrubosalgorithms.exception.InformationNotFoundException;
+import com.project2.dhrubosalgorithms.model.Category;
 import com.project2.dhrubosalgorithms.model.Role;
+import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
-import com.project2.dhrubosalgorithms.repository.RoleRepository;
-import com.project2.dhrubosalgorithms.repository.UserRepository;
+import com.project2.dhrubosalgorithms.repository.*;
 import com.project2.dhrubosalgorithms.security.MyUserDetails;
 import com.project2.dhrubosalgorithms.security.jwt.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ import java.util.Optional;
 public class AdminService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private SubmissionRepository submissionRepository;
+    private CategoryRepository categoryRepository;
+    private AlgorithmRepository algorithmRepository;
     private PasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
@@ -38,25 +42,27 @@ public class AdminService {
     }
 
     @Autowired
+    public void setSubmissionRepository(SubmissionRepository submissionRepository){this.submissionRepository = submissionRepository;}
+    @Autowired
+    public void setCategoryRepository(CategoryRepository categoryRepository){this.categoryRepository = categoryRepository;}
+    @Autowired
+    public void setAlgorithmRepository(AlgorithmRepository algorithmRepository){this.algorithmRepository = algorithmRepository;}
+    @Autowired
     public void setRoleRepository(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
-
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
-
     @Autowired
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-
     @Autowired
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
     @Autowired
     public void setJwtUtils(JWTUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
@@ -88,6 +94,7 @@ public class AdminService {
         User user = userRepository.findUserByUserName(username);
         Role role = roleRepository.findByName(roleName);
         user.getRoles().add(role);
+        user.setRoles(user.getRoles());
     }
 
     public Optional<User> getUser(Long userId) {
@@ -111,6 +118,15 @@ public class AdminService {
                 .getPrincipal();
 
         return userRepository.findAll();
+    }
+
+
+    public List<Submissions> getSubmissions(){
+        System.out.println("ADMIN SERVICE - getSubmissions ==>");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        return submissionRepository.findAll();
     }
 
 

@@ -8,7 +8,6 @@ import com.project2.dhrubosalgorithms.model.response.LoginResponse;
 import com.project2.dhrubosalgorithms.repository.RoleRepository;
 import com.project2.dhrubosalgorithms.repository.UserRepository;
 import com.project2.dhrubosalgorithms.security.jwt.JWTUtils;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,10 +17,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class UserService {
+    // USED FOR AUTHENTICATION SERVICES ON SERVER
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -55,7 +54,8 @@ public class UserService {
             Role role = roleRepository.findById(2L).get();
             userObject.getRoles().add(role);
             userObject.setRoles(userObject.getRoles());
-            return userRepository.save(userObject);
+//            return userRepository.save(userObject);
+            return userObject;
         } else {
             throw new InformationExistException("user with the email address " +
                     userObject.getEmailAddress() + " already exists");
