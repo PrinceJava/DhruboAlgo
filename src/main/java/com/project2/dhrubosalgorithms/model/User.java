@@ -32,6 +32,13 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Collection<Role> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Algorithm> algorithms;
+
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<AlgorithmCategory> categories;
 
     public User(Long id, String userName, String emailAddress, String password, Collection<Role> roles) {
         this.id = id;
@@ -80,5 +87,21 @@ public class User {
     }
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Algorithm> getRecipeList() {
+        return algorithms;
+    }
+
+    public void setRecipeList(List<Algorithm> recipeList) {
+        this.algorithms = recipeList;
+    }
+
+    public List<AlgorithmCategory> getCategoryList() {
+        return categories;
+    }
+
+    public void setCategoryList(List<AlgorithmCategory> categoryList) {
+        this.categories = categoryList;
     }
 }
