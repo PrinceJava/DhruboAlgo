@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @Service @Transactional
@@ -89,12 +90,18 @@ public class AdminService {
         user.getRoles().add(role);
     }
 
-    public User getUser(String username) {
+    public Optional<User> getUser(Long userId) {
         System.out.println("ADMIN SERVICE - getUser ==>");
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
-        return userRepository.findUserByUserName(username);
+
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            return user;
+        } else {
+            throw new InformationNotFoundException("No user was found");
+        }
     }
 
     public List<User> getUsers() {

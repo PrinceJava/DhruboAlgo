@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
@@ -28,6 +29,11 @@ public class AdminController {
     @GetMapping("/getusers")
     public ResponseEntity<List<User>>getUsers(){
         return ResponseEntity.ok().body(adminService.getUsers());
+    }
+
+    @GetMapping("/getUser/{userId}")
+    public Optional<User> getUser(@PathVariable(value = "userId") Long userId){
+        return adminService.getUser(userId);
     }
 
     @PostMapping("/user/add")
