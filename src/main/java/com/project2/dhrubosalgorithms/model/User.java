@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name= "users")
 public class User {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,7 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
 
     @JsonIgnore

@@ -44,23 +44,43 @@ public class UserService {
     @Autowired
     public void setJwtUtils(JWTUtils jwtUtils){this.jwtUtils = jwtUtils;}
 
-
-    public User createUser(User userObject) {
+    public User createUser(String userName, String emailAddress, String password, String roleName) {
         System.out.println("service is calling createUser==>");
         // if user not exists by the email
         // then create the user in the db
-        if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
-            userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
-            Role role = roleRepository.findById(2L).get();
-            userObject.getRoles().add(role);
-            userObject.setRoles(userObject.getRoles());
-//            return userRepository.save(userObject);
-            return userObject;
+
+        if (!userRepository.existsByEmailAddress(emailAddress)) {
+
+            User newUser = new User();
+            newUser.setUserName(userName);
+            newUser.setEmailAddress(emailAddress);
+            newUser.setPassword(passwordEncoder.encode(password));
+            Role role = roleRepository.findByName(roleName);
+            newUser.getRoles().add(role);
+            newUser.setRoles(newUser.getRoles());
+            return userRepository.save(newUser);
+//            return newUser;
         } else {
             throw new InformationExistException("user with the email address " +
-                    userObject.getEmailAddress() + " already exists");
+                    emailAddress + " already exists");
         }
     }
+//    public User createUser(User userObject) {
+//        System.out.println("service is calling createUser==>");
+//        // if user not exists by the email
+//        // then create the user in the db
+//        if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
+//            userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
+//            Role role = roleRepository.findByName(userObject.getRoles().toString());
+//            userObject.getRoles().add(role);
+//            userObject.setRoles(userObject.getRoles());
+//            return userRepository.save(userObject);
+////            return userObject;
+//        } else {
+//            throw new InformationExistException("user with the email address " +
+//                    userObject.getEmailAddress() + " already exists");
+//        }
+//    }
 
 
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {

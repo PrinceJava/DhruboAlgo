@@ -4,6 +4,7 @@ import com.project2.dhrubosalgorithms.model.Algorithm;
 import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.model.response.LoginRequest;
+import com.project2.dhrubosalgorithms.model.response.RegisterForm;
 import com.project2.dhrubosalgorithms.service.StudentService;
 import com.project2.dhrubosalgorithms.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +31,11 @@ public class UserController {
     public void setStudentService(StudentService studentService){this.studentService = studentService;}
 
     @PostMapping("/register")
-    public User createUser(@RequestBody User userObject) {
+    public User createUser(@RequestBody RegisterForm registerForm) {
         System.out.println("controller is calling create user ===>");
-        return userService.createUser(userObject);
+        return userService.createUser(registerForm.getUserName(),
+                registerForm.getEmailAddress(),registerForm.getPassword(),
+                registerForm.getRole());
     }
 
     @PostMapping("/login")

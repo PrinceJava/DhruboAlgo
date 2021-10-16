@@ -15,22 +15,18 @@ public class Role {
     @Column
     private String name;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @JsonIgnore
+//    @ManyToMany
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     public Role() {}
 
-    public Role(Long id, String name, User user) {
+    public Role(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.user = user;
+
     }
-
-    public User getUser() {return user;}
-
-    public void setUser(User user) {this.user = user;}
 
     public Long getId() {return id;}
 
