@@ -30,19 +30,7 @@ public class UserController {
     @Autowired
     public void setStudentService(StudentService studentService){this.studentService = studentService;}
 
-    @PostMapping("/register")
-    public User createUser(@RequestBody RegisterForm registerForm) {
-        System.out.println("controller is calling create user ===>");
-        return userService.createUser(registerForm.getUserName(),
-                registerForm.getEmailAddress(),registerForm.getPassword(),
-                registerForm.getRole());
-    }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        System.out.println("controller is calling loginUser ===>");
-        return userService.loginUser(loginRequest);
-    }
 
     @PostMapping("/{userId}/{categoryName}/{algorithmName}/submit")
     public ResponseEntity<?> createSubmissionEntry(
