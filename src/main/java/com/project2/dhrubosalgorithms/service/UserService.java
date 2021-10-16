@@ -18,9 +18,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+
 @Service
 public class UserService {
     // USED FOR AUTHENTICATION SERVICES ON SERVER
+
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -44,6 +46,14 @@ public class UserService {
     @Autowired
     public void setJwtUtils(JWTUtils jwtUtils){this.jwtUtils = jwtUtils;}
 
+    /**
+     * CREATEUSER
+     * @param userName from RegisterForm and parsed out.  Will be set to newUser.setUserName()
+     * @param emailAddress from RegisterForm and parsed out.  Will be set to newUser.setEmailAddress()
+     * @param password from RegisterForm and parsed out.  Will be set to newUser.setPassword() through encoder()
+     * @param roleName from RegisterForm and parsed out. Will find role with roleName and assign to newUser
+     * @return
+     */
     public User createUser(String userName, String emailAddress, String password, String roleName) {
         System.out.println("service is calling createUser==>");
         // if user not exists by the email
@@ -65,22 +75,6 @@ public class UserService {
                     emailAddress + " already exists");
         }
     }
-//    public User createUser(User userObject) {
-//        System.out.println("service is calling createUser==>");
-//        // if user not exists by the email
-//        // then create the user in the db
-//        if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
-//            userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
-//            Role role = roleRepository.findByName(userObject.getRoles().toString());
-//            userObject.getRoles().add(role);
-//            userObject.setRoles(userObject.getRoles());
-//            return userRepository.save(userObject);
-////            return userObject;
-//        } else {
-//            throw new InformationExistException("user with the email address " +
-//                    userObject.getEmailAddress() + " already exists");
-//        }
-//    }
 
 
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
