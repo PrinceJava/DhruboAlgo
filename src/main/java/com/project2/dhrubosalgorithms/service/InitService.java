@@ -1,8 +1,10 @@
 package com.project2.dhrubosalgorithms.service;
 
+import com.project2.dhrubosalgorithms.model.Algorithm;
 import com.project2.dhrubosalgorithms.model.Category;
 import com.project2.dhrubosalgorithms.model.Role;
 import com.project2.dhrubosalgorithms.model.User;
+import com.project2.dhrubosalgorithms.repository.AlgorithmRepository;
 import com.project2.dhrubosalgorithms.repository.CategoryRepository;
 import com.project2.dhrubosalgorithms.repository.RoleRepository;
 import com.project2.dhrubosalgorithms.repository.UserRepository;
@@ -20,6 +22,7 @@ public class InitService {
     UserRepository userRepository;
     RoleRepository roleRepository;
     CategoryRepository categoryRepository;
+    AlgorithmRepository algorithmRepository;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -31,7 +34,8 @@ public class InitService {
     }
     @Autowired
     public void setCategoryRepository(CategoryRepository categoryRepository){this.categoryRepository = categoryRepository;}
-
+    @Autowired
+    public void setAlgorithmRepository(AlgorithmRepository algorithmRepository){this.algorithmRepository = algorithmRepository;}
 
     public User addUser(User userObject) {
         System.out.println("Calling AdminService saveUser ==>");
@@ -55,5 +59,10 @@ public class InitService {
     public Category createCategory(Category categoryObject) {
         System.out.println("Calling CategoryService createCategory ==>");
         return categoryRepository.save(categoryObject);
+    }
+
+    public Algorithm createAlgorithm(Algorithm algorithmObject) {
+        System.out.println("Calling AlgorithmService createAlgorithm ==>");
+        return algorithmRepository.save(algorithmObject);
     }
 }

@@ -58,6 +58,24 @@ public class Algorithm {
     public Algorithm() {
     }
 
+    public Algorithm(Long id, String name, String description, String difficulty,
+                     String hints, String timeComplexity, String spaceComplexity,
+                     String constraints, boolean isPublic, User user,
+                     Category category, List<Submissions> submissions) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.difficulty = difficulty;
+        this.hints = hints;
+        this.timeComplexity = timeComplexity;
+        this.spaceComplexity = spaceComplexity;
+        this.constraints = constraints;
+        this.isPublic = isPublic;
+        this.user = user;
+        this.category = category;
+        this.submissions = submissions;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,9 +1,11 @@
 package com.project2.dhrubosalgorithms;
 
 
+import com.project2.dhrubosalgorithms.model.Algorithm;
 import com.project2.dhrubosalgorithms.model.Category;
 import com.project2.dhrubosalgorithms.model.Role;
 import com.project2.dhrubosalgorithms.model.User;
+import com.project2.dhrubosalgorithms.repository.CategoryRepository;
 import com.project2.dhrubosalgorithms.repository.UserRepository;
 import com.project2.dhrubosalgorithms.service.InitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,10 @@ public class DhrubosAlgorithmsApplication {
     private UserRepository userRepository;
     @Autowired
     public void setUserRepository(UserRepository userRepository){this.userRepository = userRepository;}
+    private CategoryRepository categoryRepository;
+    @Autowired
+    public void setCategoryRepository(CategoryRepository categoryRepository){this.categoryRepository = categoryRepository;}
+
     @Bean
     CommandLineRunner run(InitService initService){
         return args -> {
@@ -64,11 +70,22 @@ public class DhrubosAlgorithmsApplication {
             initService.createCategory(new Category(null,"linked_list","Algorithms based off Linked-List", null, userRepository.findUserByUserName("admin") ));
             initService.createCategory(new Category(null,"recursion","Algorithms based off Algorithms based off Algorithms", null, userRepository.findUserByUserName("admin") ));
 
-//            this.id = id;
-//            this.name = name;
-//            this.description = description;
-//            this.algorithms = algorithms;
-//            this.user = user;
+            initService.createAlgorithm(new Algorithm(
+                    null,
+                    "two_sum",
+                    "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+                    "easy",
+                    "A really brute force way would be to search for all possible pairs of numbers but that would be too slow.",
+                    "can you make it less than 0(n^2)?",
+                    "0(n+1)",
+                    "2 <= nums.length <= 104\n" +
+                    "-109 <= nums[i] <= 109\n" +
+                    "-109 <= target <= 109\n" +
+                    "Only one valid answer exists.",
+                    true,
+                    userRepository.findUserByUserName("admin"),
+                    categoryRepository.findByName("arrays"),
+                    null));
         };
     }
 }
