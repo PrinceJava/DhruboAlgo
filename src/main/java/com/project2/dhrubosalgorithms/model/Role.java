@@ -1,6 +1,8 @@
 package com.project2.dhrubosalgorithms.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity

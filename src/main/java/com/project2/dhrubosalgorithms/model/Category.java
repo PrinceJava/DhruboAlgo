@@ -38,6 +38,14 @@ public class Category {
         this.description = description;
     }
 
+    public Category(Long id, String name, String description, List<Algorithm> algorithms, User user) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.algorithms = algorithms;
+        this.user = user;
+    }
+
     public Category(){}
 
     public Long getId() {

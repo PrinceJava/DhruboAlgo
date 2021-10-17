@@ -1,5 +1,6 @@
 package com.project2.dhrubosalgorithms.controller;
 
+import com.project2.dhrubosalgorithms.model.Category;
 import com.project2.dhrubosalgorithms.model.Role;
 import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
@@ -7,6 +8,7 @@ import com.project2.dhrubosalgorithms.model.response.AddRole;
 import com.project2.dhrubosalgorithms.model.response.DeleteSubmission;
 import com.project2.dhrubosalgorithms.model.response.SubmissionUpdate;
 import com.project2.dhrubosalgorithms.service.AdminService;
+import com.project2.dhrubosalgorithms.service.CategoryService;
 import com.project2.dhrubosalgorithms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +23,15 @@ import java.util.Optional;
 public class AdminController {
     private UserService userService;
     private AdminService adminService;
+    private CategoryService categoryService;
     private AddRole addRole;
 
     @Autowired
     public void setAdminService(AdminService adminService){this.adminService = adminService;}
     @Autowired
     public void setUserService(UserService userService){this.userService = userService;}
-
+    @Autowired
+    public void setCategoryService(CategoryService categoryService){this.categoryService = categoryService;}
 
     @GetMapping("/getusers")
     public ResponseEntity<List<User>>getUsers(){
@@ -80,6 +84,12 @@ public class AdminController {
     public ResponseEntity<?>deleteSubmission(@RequestBody DeleteSubmission updateForm) {
         adminService.deleteSubmission(updateForm.getSubmissionId());
         return ResponseEntity.ok().build();
+    }
+    @PostMapping("/createcategory")
+    public ResponseEntity<?>createCategory(@RequestBody Category categoryObject){
+        URI uri = URI.create("/com.project2.dhrubosalgorithms/controller/admincontroller/");
+        return ResponseEntity.created(uri).body(categoryService.createCategory(categoryObject));
+
     }
 }
 
