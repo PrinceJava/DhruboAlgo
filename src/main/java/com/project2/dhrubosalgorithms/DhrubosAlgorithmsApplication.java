@@ -47,7 +47,23 @@ public class DhrubosAlgorithmsApplication {
             initService.addUserRole("user3","ROLE_USER");
             initService.addUserRole("matjames","ROLE_USER");
 
-            initService.createCategory(new Category(null,"Arrays","Algorithms based off Array Data Structure", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"arrays","Algorithms based off Array Data Structure", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"string","Algorithms including creating and manipulation of Strings", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"hash_table","Algorithms based off Hash Tables", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"tree","Algorithms utilizing tree data structure", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"sorting","Algorithms that sort data structures", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"binary_search","Binary Search Algorithms", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"database","SQL and Database algorithms", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"backtracking","Backtracking Algorithms", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"hash_map","Algorithms based off Hash Maps", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"dynamic_programming","Dynamic Programming Algorithms", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"binary_tree","Algorithms based off Binary Tree Search", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"depth_first_search","Algorithms based off Depth-First-Search", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"matrix","Matrix and Matrix Traversal algorithms", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"stack","Stack manipulation Algorithms", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"linked_list","Algorithms based off Linked-List", null, userRepository.findUserByUserName("admin") ));
+            initService.createCategory(new Category(null,"recursion","Algorithms based off Algorithms based off Algorithms", null, userRepository.findUserByUserName("admin") ));
+
 //            this.id = id;
 //            this.name = name;
 //            this.description = description;
