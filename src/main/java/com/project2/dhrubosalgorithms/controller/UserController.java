@@ -43,9 +43,13 @@ public class UserController {
         return ResponseEntity.created(uri).build();
     }
 
+    // ---------------------- CRUD FOR ALGORITHMS ----------------------------- //
+
     @GetMapping("/algorithms")
     public ResponseEntity<List<Algorithm>>getAlgorithms(){
         return ResponseEntity.ok().body(studentService.getAlgorithms());
     }
+
+
 
 }

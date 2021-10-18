@@ -1,5 +1,6 @@
 package com.project2.dhrubosalgorithms.service;
 
+import com.project2.dhrubosalgorithms.exception.InformationExistException;
 import com.project2.dhrubosalgorithms.exception.InformationNotFoundException;
 import com.project2.dhrubosalgorithms.model.Category;
 import com.project2.dhrubosalgorithms.model.Role;
@@ -65,7 +66,6 @@ public class CategoryService {
         this.jwtUtils = jwtUtils;
     }
 
-    //TODO CREATE get Category and Categories, Delete Category, and Update Category methods in Controller and Service
 
 
     public Category createCategory(Category categoryObject) {
@@ -74,5 +74,66 @@ public class CategoryService {
                 .getAuthentication()
                 .getPrincipal();
         return categoryRepository.save(categoryObject);
+    }
+    // get all categories
+    public List<Category> getCategories() {
+        System.out.println("service calling getCategories ==>");
+        MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        try{
+            return categoryRepository.findAll();
+        }catch(NoSuchElementException e){
+            throw new InformationNotFoundException("No Categories were found in the database");
+        }
+    }
+    // get category
+    public Optional<Category> getCategory(Long categoryId) {
+        System.out.println("service getCategory ==>");
+        MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            return category;
+        } else {
+            throw new InformationNotFoundException("category with id " + categoryId + " not found");
+        }
+    }
+
+
+    // put categories
+    public Category updateCategory(Long categoryId, Category categoryObject) {
+        System.out.println("service calling updateCategory ==>");
+        MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            if (categoryObject.getName().equals(category.get().getName())) {
+                throw new InformationExistException("category " + category.get().getName() + " is already exists");
+            } else {
+                Category updateCategory = categoryRepository.findById(categoryId).get();
+                updateCategory.setName(categoryObject.getName());
+                updateCategory.setDescription(categoryObject.getDescription());
+                return categoryRepository.save(updateCategory);
+            }
+        } else {
+            throw new InformationNotFoundException("category with id " + categoryId + " not found");
+        }
+    }
+    // delete categories
+    public void deleteCategory(Long categoryId) {
+        System.out.println("service calling deleteCategory ==>");
+        MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            categoryRepository.deleteById(categoryId);
+        } else {
+            throw new InformationNotFoundException("category with id " + categoryId + " not found");
+        }
     }
 }
