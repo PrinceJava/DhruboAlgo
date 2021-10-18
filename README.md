@@ -7,11 +7,11 @@
 
     b. run the following code:
 
-![img_8.png](img_8.png)
+![img_8.png](Images/img_8.png)
 
 ## **Welcome to Dhrubo's Algorithm Project with Java Spring Boot**
 
-![img_2.png](img_2.png)
+![img_2.png](Images/img_2.png)
 
 This project involved using a REST API for an algorithm database which allows for users to
 view and submit answers to posted agorithms. The database has endpoints designed for users 
@@ -36,7 +36,7 @@ Only the admin has access to view submissions from every user.
 Our initial ERD diagram contained a one to many relationship between a User and Submissions, Categories
 and Algorithms. The User also had a one to one relationship with Role. 
 
-![img.png](img.png)
+![img.png](Images/img.png)
 
 ## Endpoints
 
@@ -52,13 +52,13 @@ and Algorithms. The User also had a one to one relationship with Role.
 | Lucid App | Google |
 | Oracle Docs | Leet Code |
 
-![img_9.png](img_9.png) 
-![img_14.png](img_14.png) 
-![img_11.png](img_11.png)  ![img_12.png](img_12.png) ![img_10.png](img_10.png) ![img_15.png](img_15.png)
+![img_9.png](Images/img_9.png) 
+![img_14.png](Images/img_14.png) 
+![img_11.png](Images/img_11.png)  ![img_12.png](Images/img_12.png) ![img_10.png](Images/img_10.png) ![img_15.png](Images/img_15.png)
 
 
 ## User Stories
-![img_4.png](img_4.png)
+![img_4.png](Images/img_4.png)
 
 | |
 | --- |
@@ -77,7 +77,7 @@ and Algorithms. The User also had a one to one relationship with Role.
 
 ## Project Challenges
 
-![img_7.png](img_7.png)
+![img_7.png](Images/img_7.png)
 
 1. A challenge we faced was creating an admin role vs. a normal user. This problem was 
 resolved when the API paths were changed from /user to /admin, which allowed only an admin to access
