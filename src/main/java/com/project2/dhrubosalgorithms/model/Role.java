@@ -17,11 +17,6 @@ public class Role {
     @Column
     private String name;
 
-//    @JsonIgnore
-//    @ManyToMany
-//    @JoinColumn(name = "user_id")
-//    private User user;
-
     public Role() {}
 
     public Role(Long id, String name) {
