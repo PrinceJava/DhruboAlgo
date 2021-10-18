@@ -1,5 +1,23 @@
 package com.project2.dhrubosalgorithms;
 
+/*
+DHRUBOS ALGORITHM REST API PROJECT
+------- APPLICATION PAGE ---------
+
+Active Profile running is Application-DEV;
+Database Settings
+    server.port=9999
+    spring.jpa.hibernate.ddl-auto=create
+    spring.datasource.url=jdbc:postgresql://localhost:5432/algorithm
+    spring.datasource.username=postgres
+    spring.datasource.password=postgres
+    spring.jpa.show-sql=true
+    server.error.include-stacktrace=ALWAYS
+
+Goal of this page is to
+1. initialize the Maven dependencies
+2. Run initialization script to preload database tables
+ */
 
 import com.project2.dhrubosalgorithms.model.Algorithm;
 import com.project2.dhrubosalgorithms.model.Category;
@@ -32,6 +50,14 @@ public class DhrubosAlgorithmsApplication {
     @Autowired
     public void setCategoryRepository(CategoryRepository categoryRepository){this.categoryRepository = categoryRepository;}
 
+    /**
+     * This CommandLineRunner will pull in the InitService class and utilize the methods to fill the database.
+     * Sections included are
+     *      Create Roles, Create Users, Add Role To User,
+     *      Create Category, Create Algorithm
+     *
+     * @param initService - will pull all the init service methods, purpose of this method is they do not require JWT authorization
+     */
     @Bean
     CommandLineRunner run(InitService initService){
         return args -> {

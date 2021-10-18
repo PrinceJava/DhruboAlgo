@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -85,6 +86,8 @@ public class UserService {
         final String JWT = jwtUtils.generateToken(userDetails);
         return ResponseEntity.ok(new LoginResponse(JWT));
     }
+
+
 public User findUserByEmailAddress(String email) {
     return userRepository.findUserByEmailAddress(email);
 }
