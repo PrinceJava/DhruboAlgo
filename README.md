@@ -36,7 +36,7 @@ Only the admin has access to view submissions from every user.
 Our initial ERD diagram contained a one to many relationship between a User and Submissions, Categories
 and Algorithms. The User also had a one to one relationship with Role. 
 
-![img.png](img.png)
+![img.png](Images/img.png)
 
 ## Endpoints
 
