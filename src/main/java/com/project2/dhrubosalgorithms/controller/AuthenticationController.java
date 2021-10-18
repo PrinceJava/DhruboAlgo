@@ -16,6 +16,7 @@ Goal of this page is to
     D. Assign a role
 2. Generate a JWT token through the Login Portal "/api/login"
  */
+
 import com.project2.dhrubosalgorithms.model.User;
 import com.project2.dhrubosalgorithms.model.response.LoginRequest;
 import com.project2.dhrubosalgorithms.model.response.RegisterForm;
@@ -30,12 +31,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class AuthenticationController {
+
     private UserService userService;
+
     @Autowired
-    public void setUserService(UserService userService){this.userService = userService;}
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Takes in the registerForm which provides variable from both User and Role classes
+     *
      * @param registerForm register is located at "model.response.RegisterForm" and includes
      *                     1. username, email address, password
      *                     2. role name to locate the role object
@@ -45,13 +51,14 @@ public class AuthenticationController {
     public User createUser(@RequestBody RegisterForm registerForm) {
         System.out.println("controller is calling create user ===>");
         return userService.createUser(registerForm.getUserName(),
-                registerForm.getEmailAddress(),registerForm.getPassword(),
+                registerForm.getEmailAddress(), registerForm.getPassword(),
                 registerForm.getRole());
     }
 
     /**
      * loginUser method takes in authentication credentials username and password and verifies they match in the User table.
      * once verified, a JWT token will be generated and assigned via Security Context Holder in "security.jwt.JWTUtils"
+     *
      * @param loginRequest - form is located at "model.response.LoginRequest" and holds
      *                     username and email fields.
      * @return JSON object of the JWT token passed.

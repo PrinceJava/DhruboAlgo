@@ -8,9 +8,7 @@ import com.project2.dhrubosalgorithms.repository.AlgorithmRepository;
 import com.project2.dhrubosalgorithms.repository.CategoryRepository;
 import com.project2.dhrubosalgorithms.repository.RoleRepository;
 import com.project2.dhrubosalgorithms.repository.UserRepository;
-import com.project2.dhrubosalgorithms.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,14 +26,21 @@ public class InitService {
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     @Autowired
     public void setRoleRepository(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
+
     @Autowired
-    public void setCategoryRepository(CategoryRepository categoryRepository){this.categoryRepository = categoryRepository;}
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
     @Autowired
-    public void setAlgorithmRepository(AlgorithmRepository algorithmRepository){this.algorithmRepository = algorithmRepository;}
+    public void setAlgorithmRepository(AlgorithmRepository algorithmRepository) {
+        this.algorithmRepository = algorithmRepository;
+    }
 
     public User addUser(User userObject) {
         System.out.println("Calling AdminService saveUser ==>");

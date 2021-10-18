@@ -17,8 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 
 @Service
 public class UserService {
@@ -33,26 +31,42 @@ public class UserService {
     private JWTUtils jwtUtils;
 
     @Autowired
-    public void setRoleRepository(RoleRepository roleRepository){this.roleRepository = roleRepository;}
+    public void setRoleRepository(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder){this.passwordEncoder = passwordEncoder;}
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager){this.authenticationManager = authenticationManager;}
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
     @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService){this.userDetailsService = userDetailsService;}
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Autowired
-    public void setJwtUtils(JWTUtils jwtUtils){this.jwtUtils = jwtUtils;}
+    public void setJwtUtils(JWTUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
 
     /**
      * CREATEUSER
-     * @param userName from RegisterForm and parsed out.  Will be set to newUser.setUserName()
+     *
+     * @param userName     from RegisterForm and parsed out.  Will be set to newUser.setUserName()
      * @param emailAddress from RegisterForm and parsed out.  Will be set to newUser.setEmailAddress()
-     * @param password from RegisterForm and parsed out.  Will be set to newUser.setPassword() through encoder()
-     * @param roleName from RegisterForm and parsed out. Will find role with roleName and assign to newUser
+     * @param password     from RegisterForm and parsed out.  Will be set to newUser.setPassword() through encoder()
+     * @param roleName     from RegisterForm and parsed out. Will find role with roleName and assign to newUser
      * @return
      */
     public User createUser(String userName, String emailAddress, String password, String roleName) {
@@ -88,7 +102,7 @@ public class UserService {
     }
 
 
-public User findUserByEmailAddress(String email) {
-    return userRepository.findUserByEmailAddress(email);
-}
+    public User findUserByEmailAddress(String email) {
+        return userRepository.findUserByEmailAddress(email);
+    }
 }

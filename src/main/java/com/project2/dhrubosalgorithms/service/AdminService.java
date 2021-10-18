@@ -1,22 +1,14 @@
 package com.project2.dhrubosalgorithms.service;
 
-import com.project2.dhrubosalgorithms.exception.InformationExistException;
+
 import com.project2.dhrubosalgorithms.exception.InformationNotFoundException;
-import com.project2.dhrubosalgorithms.model.Category;
 import com.project2.dhrubosalgorithms.model.Role;
 import com.project2.dhrubosalgorithms.model.Submissions;
 import com.project2.dhrubosalgorithms.model.User;
-import com.project2.dhrubosalgorithms.model.response.DeleteSubmission;
 import com.project2.dhrubosalgorithms.repository.*;
 import com.project2.dhrubosalgorithms.security.MyUserDetails;
-import com.project2.dhrubosalgorithms.security.jwt.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.data.domain.Sort;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,7 +17,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
-@Service @Transactional
+@Service
+@Transactional
 public class AdminService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -36,13 +29,16 @@ public class AdminService {
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     @Autowired
-    public void setSubmissionRepository(SubmissionRepository submissionRepository){this.submissionRepository = submissionRepository;}
+    public void setSubmissionRepository(SubmissionRepository submissionRepository) {
+        this.submissionRepository = submissionRepository;
+    }
+
     @Autowired
     public void setRoleRepository(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
-
 
 
     public User addUser(User userObject) {
@@ -80,7 +76,7 @@ public class AdminService {
                 .getPrincipal();
 
         Optional<User> user = userRepository.findById(userId);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             return user;
         } else {
             throw new InformationNotFoundException("No user was found");
@@ -89,7 +85,7 @@ public class AdminService {
 
     public List<User> getUsers() {
         System.out.println("ADMIN SERVICE - getUsers ==>");
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
 
@@ -97,74 +93,56 @@ public class AdminService {
     }
 
 
-    public List<Submissions> getSubmissions(){
+    public List<Submissions> getSubmissions() {
         System.out.println("ADMIN SERVICE - getSubmissions ==>");
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
         return submissionRepository.findAll();
     }
-    public List<Submissions> getPendingSubmissions(){
+
+    public List<Submissions> getPendingSubmissions() {
         System.out.println("ADMIN SERVICE - getPendingSubmissions ==>");
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
         return submissionRepository.findByStatusIs("pending");
     }
 
     /**
-     *
      * @param submissionStatus
      * @param submissionPass
      * @param submissionId
      * @return
      */
-    public Submissions updateSubmission(String submissionStatus, Boolean submissionPass, Long submissionId ){
+    public Submissions updateSubmission(String submissionStatus, Boolean submissionPass, Long submissionId) {
 
         System.out.println("ADMIN SERVICE - updateSubmissions ==>");
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
-        try{
+        try {
             Submissions submission = submissionRepository.findById(submissionId).get();
             submission.setStatus(submissionStatus);
             submission.setPass(submissionPass);
             return submission;
-        }catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             throw new InformationNotFoundException("Submission not found");
 
         }
     }
-    public void deleteSubmission (Long submissionId){
+
+    public void deleteSubmission(Long submissionId) {
         System.out.println("ADMIN SERVICE - deleteSubmissions ==>");
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder   .getContext()
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
-        try{
+        try {
             Submissions submission = submissionRepository.findById(submissionId).get();
             submissionRepository.delete(submission);
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             throw new InformationNotFoundException("Submission not found");
 
         }
     }
-
-
-/*    public User updateUserRole(Long userId, Long roleId, User userObject) {
-        // authenticate
-        MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
-        try {
-            User user = userRepository.findById(userId).get();
-            if (user.getId().equals(user.getId())) {
-                throw new InformationExistException("Email " + user.getEmailAddress() +
-                        " already exists");
-            } else {
-                user.setRoleList(userObject.getRoleList());
-                return userRepository.save(user);
-            }
-        }catch (NoSuchElementException e){
-            throw new InformationNotFoundException("Email " + userId + "not found");
-        }
-    }*/
 }

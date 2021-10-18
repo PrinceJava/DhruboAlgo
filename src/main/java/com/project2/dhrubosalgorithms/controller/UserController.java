@@ -16,17 +16,19 @@ public class UserController {
 
 
     private StudentService studentService;
-    @Autowired
-    public void setStudentService(StudentService studentService){this.studentService = studentService;}
 
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
 
     @PostMapping("/{categoryName}/{algorithmName}/submit")
     public ResponseEntity<?> createSubmissionEntry(
             @PathVariable(value = "categoryName") String categoryName,
             @PathVariable(value = "algorithmName") String algorithmName,
-            @RequestBody Submissions submissionsObject){
-        studentService.createSubmissionEntry(categoryName,algorithmName,submissionsObject);
+            @RequestBody Submissions submissionsObject) {
+        studentService.createSubmissionEntry(categoryName, algorithmName, submissionsObject);
         URI uri = URI.create("/com.project2.dhrubosalgorithms/controller/usercontroller/");
         return ResponseEntity.created(uri).build();
     }
@@ -34,14 +36,12 @@ public class UserController {
     // ---------------------- CRUD FOR ALGORITHMS ----------------------------- //
 
     @GetMapping("/algorithms")
-    public ResponseEntity<List<Algorithm>>getAlgorithms(){
+    public ResponseEntity<List<Algorithm>> getAlgorithms() {
         return ResponseEntity.ok().body(studentService.getAlgorithms());
     }
 
     @GetMapping("/getsubmissions")
-    public ResponseEntity<List<Submissions>>getSubmissions(){
+    public ResponseEntity<List<Submissions>> getSubmissions() {
         return ResponseEntity.ok().body(studentService.getSubmissions());
     }
-
-
 }
