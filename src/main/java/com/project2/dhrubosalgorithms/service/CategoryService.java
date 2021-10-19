@@ -14,6 +14,19 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+/*
+DHRUBOS ALGORITHM REST API PROJECT
+------- CATEGORY SERVICES ---------
+
+Main purpose of this Service is to perform CRUD functions on CATEGORY TABLE via categoryRepository
+
+Goal of this page is to
+1. POST to categoryRepository via createCategory taking in JSON Category Object
+2. GET All Categories utilizing categoryRepository.findAll()
+3. GET A Category based on Path Variable Category ID
+4. UPDATE A Category based on passed Object and Path Variable
+5. DELETE A Category based on passed Path Variable
+ */
 
 @Service
 @Transactional

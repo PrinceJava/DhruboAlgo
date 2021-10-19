@@ -14,6 +14,19 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+/*
+DHRUBOS ALGORITHM REST API PROJECT
+------- ALGORITHM SERVICES ---------
+
+Main purpose of this Service is to perform CRUD functions on ALGORITHM TABLE via algorithmRepository
+
+Goal of this page is to
+1. POST to algorithmRepository via createCategory taking in JSON Category Object
+2. GET All Algorithms utilizing algorithmRepository.findAll()
+3. GET AN Algorithm based on Path Variable Category ID
+4. UPDATE AN Algorithm based on passed Object and Path Variable
+5. DELETE AN Algorithm based on passed Path Variable
+ */
 
 @Service
 @Transactional
