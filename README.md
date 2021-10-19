@@ -13,7 +13,7 @@
 ![img_2.png](Images/img_2.png)
 
 This project involved using a REST API for an algorithm database which allows for users to
-view and submit answers to posted agorithms. The database has endpoints designed for users 
+view and submit answers to posted algorithms. The database has endpoints designed for users 
 and endpoints designed for admins, which require proper authentication using a JSON Web Token.     
 
 In Dhrubo's Algorithm app you will be able to challenge yourself in solving everyday algorithm's.
@@ -30,6 +30,11 @@ The admin has the permission to add, update, delete and create new categories or
 The admin will also be able to change the status of an algo submission from "pending" to "completed".
 Only the admin has access to view submissions from every user. 
 
+## Original project concept:
+The original concept started with an idea to create a database where a user would be able to login and view algorithm's posted by an administrator. We also wanted to create an Admin user, who would have the ability to create, delete and update current algorithms. The final stage was assigning a role to a user and admin with different access permissions for each one.   
+
+![img.png](Images/imgERD.png)
+
 ## Entity Relationship Diagram (ERD):
 
 Our initial ERD diagram contained a one to many relationship between a User and Submissions, Categories
@@ -38,8 +43,8 @@ and Algorithms. The User also had a one to one relationship with Role.
 ![img.png](Images/img.png)
 
 ## Model View Controller System Design (MVC):
-This project was built using the MVC design, implimenting a Model, View, and Controller class. 
-Main objective of this structure is "Seperation of Concerns" allowing each layer of the application communicate with other layers for data logic and data access and abstraction.
+This project was built using the MVC design, implementing a Model, View, and Controller class. 
+Main objective of this structure is "Separation of Concerns" allowing each layer of the application communicate with other layers for data logic and data access and abstraction.
 This project consists of: 
 1. 5 Model Classes, 
 2. 8 different types of Forms for building and sending JSON body objects
@@ -132,7 +137,7 @@ to any updates being completed as this ensured the most recent code was updated.
 and create a `PUSH` request after any updates to have the most updated version in Git. 
 
 
-4. Adding claims - One of the initial goals of the projects was to add authorizations insde the JWT token.
+4. Adding claims - One of the initial goals of the projects was to add authorizations inside the JWT token.
    These Authorizations would be the Authorization for Access after Authentication was completed.  Figuring out the correct way to add inside the UserDetails class "Granted Authorities" variable was challenging.  
    We started with 1 to 1 relationship for User <> Role and added the single Role to the Granted Authorities list, but when we wanted to add ManyToMany connection, we had to take a loop (for each Role assigned to user) and add it to a list.
    Once the JWT Token was initiated we could pull ROLE from the token inside claims.  With the scope of this project, we went with a more bare metal approach and utilized 
