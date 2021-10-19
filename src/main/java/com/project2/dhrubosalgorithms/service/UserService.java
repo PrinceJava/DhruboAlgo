@@ -17,11 +17,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/*
+DHRUBOS ALGORITHM REST API PROJECT
+------- USER SERVICES ---------
+
+User Service is used for original authentication purposes.  Methods included are findUserByEmailAddress, Login, and Register.
+This Service takes in userRepository, roleRepository, passwordEncoder, authenticationManager, userDetailsService, and jwtUtils
+for purposes of Encoding Passwords, and Generating JWT Tokens based of Authentication Manager and JWTUtilis.
+
+Goal of this page is to
+1. create Users based off /api/register API endpoint
+2. log in users based off credentials and Authentication Manager, and return a JWT token generated including header, subject, and signature
+3. get all submissions relative to the user that was authenticated via Security Context Holder in MyUserDetails
+ */
 
 @Service
 public class UserService {
-    // USED FOR AUTHENTICATION SERVICES ON SERVER
-
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -61,13 +72,13 @@ public class UserService {
     }
 
     /**
-     * CREATEUSER
+     * CREATE USER
      *
      * @param userName     from RegisterForm and parsed out.  Will be set to newUser.setUserName()
      * @param emailAddress from RegisterForm and parsed out.  Will be set to newUser.setEmailAddress()
      * @param password     from RegisterForm and parsed out.  Will be set to newUser.setPassword() through encoder()
      * @param roleName     from RegisterForm and parsed out. Will find role with roleName and assign to newUser
-     * @return
+     * @return - SAVE NEW USER to USER TABLE
      */
     public User createUser(String userName, String emailAddress, String password, String roleName) {
         System.out.println("service is calling createUser==>");
@@ -92,6 +103,14 @@ public class UserService {
     }
 
 
+    /**
+     * LOGIN USER
+     * Method calls the Authentication Manager object, and implements the authenticate method taking in the past object
+     * from the Login Request Form, including user Email and Password.  First will find the user, and generate a TOKEN from
+     * JWTUtils class via method generateToken
+     * @param loginRequest - PASSED JSON OBJECT FROM LOGIN REQUEST Form - String Username String Email Address
+     * @return - Response Entity.ok with the new JWT token
+     */
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
         System.out.println("service calling loginUser ==>");
         authenticationManager.authenticate(new
@@ -102,6 +121,7 @@ public class UserService {
     }
 
 
+    // Implemented method to find user by passed String email Address.
     public User findUserByEmailAddress(String email) {
         return userRepository.findUserByEmailAddress(email);
     }
